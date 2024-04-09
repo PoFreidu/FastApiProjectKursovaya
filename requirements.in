@@ -46,3 +46,4 @@ ujson
 urllib3
 watchgod
 websockets
+pydantic-settings
