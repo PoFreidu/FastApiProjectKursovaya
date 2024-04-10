@@ -3,4 +3,7 @@ venv
 .venv
 .idea
 .env
+.db
 todo.db
+certs
+.pem
