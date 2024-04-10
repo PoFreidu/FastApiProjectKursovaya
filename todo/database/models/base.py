@@ -8,19 +8,23 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 
 from sqlalchemy import create_engine, Boolean, String
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import declarative_base, sessionmaker, DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import declarative_base, sessionmaker, DeclarativeBase, Mapped, mapped_column, declared_attr
 
 from todo.config import settings
 
-BASE_DIR = os.path.dirname(os.path.abspath(__name__))
-db_path = os.path.join(BASE_DIR, 'todo', 'database', 'db')
-if not os.path.exists(db_path):
-    os.makedirs(db_path)
 
+# Base = declarative_base()
 
-Base = declarative_base()
+# engine = create_engine(settings.db_url, connect_args={'check_same_thread': False}, echo=True)
 
-engine = create_engine(settings.db_url, connect_args={'check_same_thread': False}, echo=True)
+class Base(DeclarativeBase):
+    __abstract__ = True
+
+    @declared_attr
+    def __tablename__(cls) -> str:
+        return f"{cls.__name__.lower()}s"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
 
 # class Base(DeclarativeBase):
 #     pass
@@ -51,12 +55,12 @@ engine = create_engine(settings.db_url, connect_args={'check_same_thread': False
 # async def get_user_db(db_local_session: AsyncSession = Depends(get_async_db)):
 #     yield SQLAlchemyUserDatabase(db_local_session, User)
 
-async def get_db():
-    db_local_session = LocalSession()
-    try:
-        yield db_local_session
-    finally:
-        db_local_session.close()
+# async def get_db():
+#     db_local_session = LocalSession()
+#     try:
+#         yield db_local_session
+#     finally:
+#         db_local_session.close()
 
 
-LocalSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# LocalSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)

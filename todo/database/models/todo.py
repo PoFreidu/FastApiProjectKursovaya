@@ -1,15 +1,15 @@
-from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTableUUID, SQLAlchemyUserDatabase, SQLAlchemyBaseUserTable
-from todo.database.database import Base, engine, AsyncSession, Depends
-from sqlalchemy import Column, String, Integer, Boolean, TIMESTAMP, ForeignKey, JSON
-from datetime import datetime
+from sqlalchemy.orm import Mapped, mapped_column
+
+from todo.database.models.base import Base
 
 
 class ToDo(Base):
-    __tablename__ = 'todos'
-
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String)
-    is_complete = Column(Boolean, default=False)
+    # __tablename__ = 'todos'
+    title: Mapped[str]
+    is_complete: Mapped[bool] = mapped_column(default=False)
+    # id = Column(Integer, primary_key=True, index=True)
+    # title = Column(String)
+    # is_complete = Column(Boolean, default=False)
 
     # Column("id", Integer, primary_key=True),
     # Column("title", String, nullable=False),
@@ -33,4 +33,4 @@ class ToDo(Base):
 #     Column("registered_at", TIMESTAMP, default=datetime.utcnow),
 #     Column("role_id", Integer, ForeignKey("roles_id")),
 
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
