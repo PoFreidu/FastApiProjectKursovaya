@@ -7,4 +7,4 @@ app = FastAPI()
 app.mount('/templates', StaticFiles(directory='todo/templates'), name='templates')
 templates = Jinja2Templates(directory='todo/templates')
 
-from todo.routers import home
+from todo.routes import home

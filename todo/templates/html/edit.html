@@ -1,0 +1,29 @@
+{% extends 'html/layout.html' %}
+
+{% block content %}
+<div style="margin-top: 200px;" class="ui container">
+
+    <h1 class="ui center aligned header violet">{{ app_name }}</h1>
+
+    <form class="ui form" action="/edit/{{todo.id}}" method="post">
+        <h2 class="test_css">Режим изменения задачи</h2>
+        <div class="field">
+            <label>Ваша задача</label>
+        </div>
+        <textarea name="title" rows="1" >{{todo.title}}</textarea>
+
+        {% if todo.is_complete == False %}
+        <span class="ui red label">Не завершено</span>
+<!--            <a class="ui blue button" href="{{ url_for('update', todo_id=todo.id) }}">Закрыть</a>-->
+        {% else %}
+        <span class="ui violet label">Завершено</span>
+<!--            <a class="ui green button" href="{{ url_for('update', todo_id=todo.id) }}">Открыть</a>-->
+        {% endif %}
+
+        <button class="ui blue button" type="submit">Сохранить</button>
+    </form>
+</div>
+{% endblock content %}
+
+<!--cols="20"-->
+<!--{% if todo.completed %}checked{% endif %}>-->

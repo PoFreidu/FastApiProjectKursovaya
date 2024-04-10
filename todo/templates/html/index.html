@@ -1,9 +1,35 @@
 {% extends 'html/layout.html' %}
 
 {% block content %}
+<div style="margin-top: 200px;" class="ui container">
+
+    <h1 class="ui center aligned header violet">{{ app_name }}</h1>
+
+    <form class="ui form" action="{{ url_for('add') }}" method="post">
+        <h3 class="test_css">Задачи на Python</h3>
+        <div class="field">
+            <label>Новая задача</label>
+            <input type="text" name="title" placeholder="Введите название задачи"><br>
+        </div>
+        <button class="ui teal basic button" type="submit">Добавить</button>
+    </form>
 
 
-{{ app_name }}
+    {% for todo in todo_list %}
+    <div class="ui segment">
+        <p class="ui big header">№{{ todo.id }} {{ todo.title }}</p>
 
-
+        {% if todo.is_complete == False %}
+        <span class="ui red label">Не завершено</span>
+        <a class="ui blue button" href="{{ url_for('update', todo_id=todo.id) }}">Закрыть</a>
+        <a class="ui blue button" href="{{ url_for('rename', todo_id=todo.id) }}">Переименовать</a>
+        {% else %}
+        <span class="ui violet label">Завершено</span>
+        <a class="ui green button" href="{{ url_for('update', todo_id=todo.id) }}">Открыть</a>
+        <a class="ui blue button" href="{{ url_for('delete', todo_id=todo.id) }}">Удалить</a>
+        <a class="ui blue button" href="{{ url_for('rename', todo_id=todo.id) }}">Переименовать</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
 {% endblock content %}
