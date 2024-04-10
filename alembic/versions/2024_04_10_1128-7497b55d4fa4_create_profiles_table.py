@@ -1,4 +1,4 @@
-"""Create profile table
+"""Create profiles table
 
 Revision ID: 7497b55d4fa4
 Revises: ee194d2ea678
