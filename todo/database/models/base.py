@@ -8,7 +8,14 @@ from fastapi_users_db_sqlalchemy import SQLAlchemyBaseUserTable
 
 from sqlalchemy import create_engine, Boolean, String
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
-from sqlalchemy.orm import declarative_base, sessionmaker, DeclarativeBase, Mapped, mapped_column, declared_attr
+from sqlalchemy.orm import (
+    declarative_base,
+    sessionmaker,
+    DeclarativeBase,
+    Mapped,
+    mapped_column,
+    declared_attr,
+)
 
 from todo.config import settings
 
@@ -17,14 +24,16 @@ from todo.config import settings
 
 # engine = create_engine(settings.db_url, connect_args={'check_same_thread': False}, echo=True)
 
+
 class Base(DeclarativeBase):
     __abstract__ = True
 
     @declared_attr
-    def __tablename__(cls) -> str:
-        return f"{cls.__name__.lower()}s"
+    def __tablename__(self) -> str:
+        return f"{self.__name__.lower()}s"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+
 
 # class Base(DeclarativeBase):
 #     pass
