@@ -7,8 +7,10 @@ from api_v1.todos import crud
 from todo.database.models import db_engine, ToDo
 
 
-async def todo_by_id(todo_id: Annotated[int, Path], session: AsyncSession = Depends(
-    db_engine.scoped_session_dependency)) -> ToDo:
+async def todo_by_id(
+    todo_id: Annotated[int, Path],
+    session: AsyncSession = Depends(db_engine.scoped_session_dependency),
+) -> ToDo:
     todo = await crud.get_todo(session=session, todo_id=todo_id)
     if todo is not None:
         return todo

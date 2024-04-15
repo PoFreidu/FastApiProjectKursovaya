@@ -1,17 +1,26 @@
-{% extends 'html/layout.html' %}
-
+<!-- extends 'ui/templates/layout.html' -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Python FastAPI To Do with Jinja2 Template</title>
+</head>
 {% block content %}
+
 <div style="margin-top: 200px;" class="ui container">
 
-    <h1 class="ui center aligned header violet">{{ app_name }}</h1>
-
-    <form class="ui form" action="{{ url_for('add') }}" method="post">
+    <h1 class="text-center my-3 pb-3">Python FastAPI To Do with Jinja2 Template</h1>
+<!--/api_v1/todos/-->
+    <form class="row" action="{{ url_for('create_todo_page') }}" method="post" enctype="multipart/form-data">
         <h3 class="test_css">Задачи на Python</h3>
         <div class="field">
             <label>Новая задача</label>
-            <input type="text" name="title" placeholder="Введите название задачи"><br>
+            <label>
+                <input type="text" name="title" placeholder="Введите название задачи">
+            </label><br>
         </div>
-        <button class="ui teal basic button" type="submit">Добавить</button>
+        <button type="submit" class="btn btn-primary" >Добавить</button>
     </form>
 
 
@@ -33,3 +42,4 @@
     {% endfor %}
 </div>
 {% endblock content %}
+<!--<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>-->
